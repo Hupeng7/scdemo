@@ -13,9 +13,9 @@ spring:
       server:
         git:
           #目前使用的是个人git库 也可以gitLab库 通过WebHooks实现自动刷新配置
-          uri: https://github.com/newOneObject/springCloud
-          username: newOneObject
-          password: ${cipher}2648aade332bc5ce2d253a05d62f8c64e7e53e946c0eedf299895ede2394eb1a
+          uri: https://github.com/Hupeng7/scdemo
+          username: Hupeng7
+          password: ${cipher}346E4664716E6277456F38376A4C6C77375242416A57734F6B4C6D4E4B68366B45746944566765586943343D
           force-pull: true
           clone-on-start: true
 #关闭配置中心的security验证（后续配置变动可以去掉，主要是非对称加密相关）

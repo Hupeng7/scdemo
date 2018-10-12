@@ -51,23 +51,23 @@ spring:
       validationQuery: SELECT 'x'
       time-between-eviction-runs-millis: 60000
 #  zipkin:
-#    base-url: http://10.40.255.90:9411
+#    base-url: http://localhost:9411
 #  sleuth:
 #    sampler:
 #      percentage: 1.0
 
 #开启feign客户端路由
-#feign:
-#  hystrix:
-#    enabled: fasle
-##设置断路器默认超时时间
-#hystrix:
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          thread:
-#            timeoutInMillisecondes: 5000
+feign:
+  hystrix:
+    enabled: fasle
+#设置断路器默认超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecondes: 5000
 
 #日志处理/链路日志处理
 #logging:
