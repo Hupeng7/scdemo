@@ -1,0 +1,126 @@
+server:
+  port: 2002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:2000/eureka/
+  instance:
+    prefer-ip-address: true
+spring:
+  profiles:
+    active: dev
+#  rabbitmq:
+#        host: 10.40.254.59
+#        port: 5672
+#        username: admin
+#        password: 123456
+#        listener:
+#          simple:
+#            #消费次数如果大于重试上限是否丢弃消息
+#            default-requeue-rejected: true
+#            retry:
+#              #重试次数
+#              max-attempts: 3
+#              #是否开启重试开关
+#              enabled: true
+#              #重试间隔
+#              initial-interval: 3000
+  redis:
+      timeout: 3000
+      host: 127.0.0.1
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+      database: 0
+  datasource:
+    url: 'jdbc:mysql://localhost:3306/dbone?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&allowMultiQueries=true'
+    username: root
+    password: root
+    driver-class-name: 'com.mysql.jdbc.Driver'
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #最大连接数
+      max-active: 50
+      #最小连接数
+      minIdle: 5
+      #获取连接最小等待时间（毫秒）
+      maxWait: 10000
+      #解决Mysql 8小时断开空闲连接的问题
+      validationQuery: SELECT 'x'
+      time-between-eviction-runs-millis: 60000
+#  zipkin:
+#    base-url: http://10.40.255.90:9411
+#  sleuth:
+#    sampler:
+#      percentage: 1.0
+
+#开启feign客户端路由
+#feign:
+#  hystrix:
+#    enabled: fasle
+##设置断路器默认超时时间
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMillisecondes: 5000
+
+#日志处理/链路日志处理
+#logging:
+#  level:
+#    com.codingapi: debug
+#    com.sc.user.mapper: debug
+#    com.sc.user.feignClients.OrderFeignClient: debug
+
+
+#LCN相关配置
+#init-db: true
+#ribbon:
+#  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#  MaxAutoRetriesNextServer: 0
+#
+#tm:
+#  manager:
+#    url: http://10.40.255.90:8899/tx/manager/
+
+#配置【QQ/微信/微博】的appId与secret
+login:
+     QQappId: 1106041043
+     QQsecret: jReqWlUw3105tGBZ
+     WechatAppId: wxd66944659074d7f4
+     WechatSecret: b3a7487ecfca681b5cdb3584bfaa5e8e
+     WechatGrantType: authorization_code
+     WeiboAppId: 1528767946
+     WeiboSecret: 6ef467d04e49ac00b694e829a60fd0cc
+     weibo-open-api-url: https://api.weibo.com/2/users/show.json
+     wx-open-api-url: https://api.weixin.qq.com/sns/oauth2/access_token
+     wx-open-api-url2: https://api.weixin.qq.com/sns/userinfo
+     qq-open-api-url: https://graph.qq.com/oauth2/me?access_token
+     qq-open-api-url2: https://graph.qq.com/user/get_user_info
+
+sms:
+  chuanglan:
+    #用户平台API账号(非登录账号,示例:N1234567
+    account: N2792744
+    #用户平台API密码(非登录密码)
+    password: KsqAXCW2rueefa
+    #请求地址请登录253云通讯自助通平台查看或者询问您的商务负责人获取
+    url: http://sms.253.com/msg/send/json
+    code-time-out: 60000
+
+token:
+  valid-time: 15778463000
+  refresh-time: 12000
+  star-secret: star
+  customer-secret: consumer
+
+rsa:
+  public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqzPP9xRwyTBr/eajC2R2KmCuQtSErkAzBuO9RcABPzPjRuGyF5e4tjrPajMvH/sLvIQITqq8gE+df9kNjw9Czge7xzSnJdff0rGz49azz1MnwSl12bsYP+xCWYM694WZNyAAD7LwYNJRLazFEIWhzDqENmNaQ7yg+BbSPfBlGlaKo3xuZ6q33++vQRIWX+yvEhSY1ByhK73cEKK3h+VI4D8jhAFM+5x150y+dbemYkJJ2eSb247brCsDJN7yx/n2Y9ofksK/2dpVj7vmgGHRfGb37GmFWnGR/mt8Ek/JWa7CjXNLP/D4OEZF/TpHXn5SBKqsLVVlpfiXeqWn7Yip5wIDAQAB
+  private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCrM8/3FHDJMGv95qMLZHYqYK5C1ISuQDMG471FwAE/M+NG4bIXl7i2Os9qMy8f+wu8hAhOqryAT51/2Q2PD0LOB7vHNKcl19/SsbPj1rPPUyfBKXXZuxg/7EJZgzr3hZk3IAAPsvBg0lEtrMUQhaHMOoQ2Y1pDvKD4FtI98GUaVoqjfG5nqrff769BEhZf7K8SFJjUHKErvdwQoreH5UjgPyOEAUz7nHXnTL51t6ZiQknZ5JvbjtusKwMk3vLH+fZj2h+Swr/Z2lWPu+aAYdF8ZvfsaYVacZH+a3wST8lZrsKNc0s/8Pg4RkX9OkdeflIEqqwtVWWl+Jd6paftiKnnAgMBAAECggEBAJqclin7icgINN791S1KsvSej4HHT3PWgr6sGZjOR9H+WDkBRsbLvILGJd8xDlQBcp3zV1VEGCyAuiplqTsTey96CHlk8bbZeEddOKqAka6g2Hw3pzjVIJdKFLmmLDCxtKb1/VgwL6ohBjMLnoTHSlGYXyKHI1OdHHowkfpiCcx373Irz7VLnbV3khpLqhBUgFQl5zFNi1+xJ3g6KvxcSLMB75slFBYE4hY3V+7IAKsOofV0CqoGruSZfCcPq8nGM2rS1ul4EruEyCji7OqsylqlZWkZqW/d0ANF6/9rTSc/fGvQIG7FSZ9Sa3zjpXDu22Ar2SH+8P6nQksZ0qUJS+ECgYEA+fMdEMjBSg8YfhKIQfTf0tt652AYqu7OV2WOvBlu+zdxFwJNoX5V5/x7WJe1rcd48Dk5HXpqGgc45HNBeL58hKrtvXFxvL498/bbweGF3nYHufBeeJxO97WkvWdA93Yc5B0zGUF+JoZgeG28WEhHwiRUt92ItHVCftDKPhHU2m8CgYEAr1i33xl8h5lML5uiIMTre6SMuFEOCXjJmOM7NTLT0BJZaKzUy/WV1DDUm0+H8mFU5hI+r0pKkIvL7IAHtlN/K1GOG/RR5vx4cGH0zUAQ7iyeKsKzpA3WVrNK6ct1MJGD5AwSxzBHGMifc7em9nabRaYetJL2l4IUIkpIoS8wxAkCgYBO5r+2HKlnh3xjz9XTfElrdn1FrMActWXNkPGNzzmJc+bvLHr1D7xujvUg8kMXqHA05NtywsHblYwQEZIJW5hTCOIjezw8KJHGAZc9jMOFhhzKRWaNDEqhR2XJpF6Nv2s/VzhaMKJx5tltKrbZ53c/gdh8ciJFVP64qZAuJ9LZYQKBgGOMc79mgcueHaG9svr1sVdd4UJXSifYemOhRiD6vUQY1sfVr24n/CsemeWe7miOF5wS6aGtBM4xf9HCEh7SIpWeVJbMS59e4KW1Bz1rzPDbReSy6zgNXw2T9sjq6JptUrqqnBKX9xU7+ULCFjlAtwCAwlf0Q6lagUHCeJ+B4ia5AoGAPAhy7VtlcC2uXenLhPve3bB6wWngstDWkfQ5spNmxpW0fK6aOHKDkpn1f5+YDQNvn+8hW//mG+oiNHE1zzvvyPV4F3+1/TAQwSGe7+9OzznIol7gHiDKIuf9jlDf8VhCePo7x2aN2lNsbeGRZX5/YCmuQQcFObqMG2iEni9FyUs=
+
+
+

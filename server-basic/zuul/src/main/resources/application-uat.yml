@@ -1,0 +1,69 @@
+#服务名称#
+spring:
+  application:
+    name: zuul-server
+  profiles:
+    active: uat
+  redis:
+      port: 6379
+      host: 10.40.254.59
+      timeout: 2000
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecondes: 10000
+
+
+#服务中心默认地址#
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.40.255.90:2000/eureka/
+
+#配置zuul网关#
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  routes:
+    order-api:
+      path: /order-api/**
+      serviceId: order-service
+    user-api:
+      path: /user-api/**
+      serviceId: user-service
+    comment-api:
+      path: /comment-api/**
+      serviceId: comment-service
+    good-api:
+      path: /goods-api/**
+      serviceId: goods-service
+#    ratelimit:
+#      enabled: true
+#      repository: redis
+#      behind-proxy: true
+#      policy-list:
+#        user-service:
+#          limit: 2
+#          refresh-interval: 1
+
+
+#设置断路器默认超时时间
+
+#ribbon:
+#  eureka:
+#    enabled: false
+#
+#order-api:
+#  ribbon:
+#    listOfServers: localhost,localhost
+token:
+  valid-time: 15778463000
+  refresh-time: 12000
+  star-secret: star
+  customer-secret: consumer

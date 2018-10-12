@@ -1,0 +1,12 @@
+server:
+  port: 2000
+
+eureka:
+  instance:
+    hostname: icecreamGroupEurekaServer
+  client:
+  ## 单机 区别于集群
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:2000/eureka
