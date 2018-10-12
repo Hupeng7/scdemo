@@ -15,7 +15,7 @@ spring:
           #目前使用的是个人git库 也可以gitLab库 通过WebHooks实现自动刷新配置
           uri: https://github.com/Hupeng7/scdemo
           username: Hupeng7
-          password: ${cipher}346E4664716E6277456F38376A4C6C77375242416A57734F6B4C6D4E4B68366B45746944566765586943343D
+          password: ${cipher}6B34345764366830576342494C3164385273714F4A413D3D
           force-pull: true
           clone-on-start: true
 #关闭配置中心的security验证（后续配置变动可以去掉，主要是非对称加密相关）
