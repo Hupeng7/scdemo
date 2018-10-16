@@ -34,7 +34,6 @@ public class Swagger2Config {
                 .title("用户系统API")
                 .termsOfServiceUrl("termsOfServiceUrl")
                 .version("1.0")
-
                 .build();
     }
 

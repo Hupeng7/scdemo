@@ -1,14 +1,22 @@
 package com.sc.user.redis;
 
 import com.alibaba.fastjson.parser.ParserConfig;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCachePrefix;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @author hp
@@ -24,12 +32,13 @@ public class RedisConfig extends CachingConfigurerSupport {
      * 并且可以保证key在每个系统中唯一的情况下
      * 不推荐使用
      * redis 自定义key生成规则
-     * @return
-     * className:method:params
+     *
+     * @return className:method:params
      * 栗子：com.icecream.comment.controller.CommentsControllerbackComments
      */
-   /* @Bean("KeyGenerator")
-    public KeyGenerator KeyGenerator() {
+    @Override
+    @Bean("KeyGenerator")
+    public KeyGenerator keyGenerator() {
         return (target, method, params) -> {
             StringBuilder sb = new StringBuilder();
             sb.append(target.getClass().getName());
@@ -39,16 +48,17 @@ public class RedisConfig extends CachingConfigurerSupport {
             }
             return sb.toString();
         };
-    }*/
+    }
 
     /**
      * 缓存容器
      * 创建一个缓存管理器并交由spring的bean工厂托管
      * 可以设置缓存的整体前缀，整体过期时间等
+     *
      * @param redisTemplate redis操作模板
      * @return
      */
-   /* @Bean
+    @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
         RedisCacheManager manager = new RedisCacheManager(redisTemplate);
         manager.setUsePrefix(true);
@@ -57,18 +67,19 @@ public class RedisConfig extends CachingConfigurerSupport {
         // 整体缓存过期时间
         manager.setDefaultExpiration(3600L);
         // 设置缓存过期时间。key和缓存过期时间，单位秒
-        Map<String, Long> expiresMap = new HashMap<>();
+        Map<String, Long> expiresMap = new HashMap<>(14);
         manager.setExpires(expiresMap);
         return manager;
-    }*/
+    }
 
 
     /**
      * 自定义序列器
+     *
      * @return
      */
     @Bean
-    public RedisSerializer CustomRedisSerializer() {
+    public RedisSerializer customRedisSerializer() {
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
         return new CustomRedisSerializer<>(Object.class);
     }
@@ -76,6 +87,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * redisTemplate 配置
+     *
      * @param factory jedis连接工厂对象
      * @return
      */

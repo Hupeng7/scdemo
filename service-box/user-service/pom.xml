@@ -14,12 +14,12 @@
     <packaging>jar</packaging>
 
     <dependencies>
-     <!--   &lt;!&ndash;jwt依赖&ndash;&gt;
+        <!--jwt依赖-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.7.0</version>
-        </dependency>-->
+        </dependency>
         <!--微信core包-->
        <!-- <dependency>
             <groupId>com.github.liyiorg</groupId>

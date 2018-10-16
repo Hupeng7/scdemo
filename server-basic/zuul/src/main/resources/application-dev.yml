@@ -17,15 +17,15 @@ eureka:
 #配置zuul网关#
 zuul:
   routes:
-    order-api:
-      path: /order-api/**
-      serviceId: order-service
+#    order-api:
+#      path: /order-api/**
+#      serviceId: order-service
     user-api:
       path: /user-api/**
       serviceId: user-service
-    comment-api:
-      path: /comment-api/**
-      serviceId: comment-service
+#    comment-api:
+#      path: /comment-api/**
+#      serviceId: comment-service
 
 
 #设置断路器默认超时时间

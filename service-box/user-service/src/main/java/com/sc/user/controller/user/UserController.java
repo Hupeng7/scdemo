@@ -1,5 +1,7 @@
 package com.sc.user.controller.user;
 
+import com.sc.common.model.enums.OperatorRole;
+import com.sc.common.util.aspect.annotation.Operator;
 import com.sc.common.util.res.ResultVO;
 import com.sc.user.service.user.UserService;
 import io.swagger.annotations.Api;
@@ -31,6 +33,7 @@ public class UserController {
      */
     @ApiOperation(value = "【需要粉丝端token】根据id获取用户信息")
     @GetMapping("/{id}")
+    @Operator(role = OperatorRole.CONSUMER)
     public ResultVO getUser(@PathVariable("id") Integer id) {
         return userService.getUser(id);
     }

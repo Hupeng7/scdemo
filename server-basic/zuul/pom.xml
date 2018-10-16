@@ -29,9 +29,9 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.adinnet-cream.common</groupId>
+            <groupId>com.sc.common</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--redis依赖-->
         <dependency>

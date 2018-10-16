@@ -14,22 +14,22 @@ spring:
     name: user-service
   profiles:
     active: dev
-#  rabbitmq:
-#        host: 10.40.254.59
-#        port: 5672
-#        username: admin
-#        password: 123456
-#        listener:
-#          simple:
-#            #消费次数如果大于重试上限是否丢弃消息
-#            default-requeue-rejected: true
-#            retry:
-#              #重试次数
-#              max-attempts: 3
-#              #是否开启重试开关
-#              enabled: true
-#              #重试间隔
-#              initial-interval: 3000
+  rabbitmq:
+        host: localhost
+        port: 15672
+        username: guest
+        password: guest
+        listener:
+          simple:
+            #消费次数如果大于重试上限是否丢弃消息
+            default-requeue-rejected: true
+            retry:
+              #重试次数
+              max-attempts: 3
+              #是否开启重试开关
+              enabled: true
+              #重试间隔
+              initial-interval: 3000
   redis:
       timeout: 3000
       host: 127.0.0.1
@@ -40,7 +40,7 @@ spring:
         min-idle: 0
       database: 0
   datasource:
-    url: 'jdbc:mysql://localhost:3306/icecream?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&allowMultiQueries=true'
+    url: 'jdbc:mysql://localhost:3306/xgq?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&tinyInt1isBit=false&allowMultiQueries=true'
     username: root
     password: root
     driver-class-name: 'com.mysql.jdbc.Driver'
