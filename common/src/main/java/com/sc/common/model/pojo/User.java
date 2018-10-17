@@ -41,7 +41,7 @@ public class User {
 
     private Integer scoreid;
 
-    private String antuid;
+    private String authid;
 
     private String itucode;
 

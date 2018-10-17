@@ -1,5 +1,6 @@
 package com.sc.common.util.aspect;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sc.common.model.enums.OperatorRole;
 import com.sc.common.util.aspect.annotation.Operator;
@@ -31,6 +32,10 @@ import java.nio.charset.Charset;
 @Slf4j
 @Order(2)
 public class OperatorAspect {
+    private static final String STAR = "STAR";
+
+    private static final String CONSUMER = "CONSUMER";
+
     @Pointcut("@annotation(com.sc.common.util.aspect.annotation.Operator)")
     public void pointCut() {
     }
@@ -46,31 +51,34 @@ public class OperatorAspect {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         try {
             body = StreamUtils.copyToString(inputStream, Charset.forName("utf-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JSONObject jsonObject = JSONObject.parseObject(body);
+        JSONObject jsonObject = JSON.parseObject(body);
+
         String specialTokenId = jsonObject.getString("specialTokenId");
         if (null == specialTokenId) {
             specialTokenId = request.getParameter("specialTokenId");
         }
+        log.info("specialTokenId--->" + specialTokenId);
         OperatorRole role = operator.role();
         String name = role.name();
-        if (OperatorRole.CONSUMER.equals(name)) {
+        log.info("name--->" + name);
+        if (CONSUMER.equals(name)) {
             if (!PermissionChecker.belongToConsumer(Integer.parseInt(specialTokenId))) {
                 return ResultUtil.error(null, ResultEnum.NOT_AUTH);
             } else {
                 try {
+                    log.info("consumer target proceed");
                     return target.proceed();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                     return ResultUtil.error(null, ResultEnum.ERROR_UNKNOWN);
                 }
             }
-        } else if (OperatorRole.STAR.equals(name)) {
+        } else if (STAR.equals(name)) {
             if (!PermissionChecker.belongToStar(Integer.parseInt(specialTokenId))) {
                 return ResultUtil.error(null, ResultEnum.NOT_AUTH);
             } else {
@@ -78,7 +86,6 @@ public class OperatorAspect {
                     return target.proceed();
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
-                    log.info("");
                     return ResultUtil.error(null, ResultEnum.ERROR_UNKNOWN);
                 }
             }

@@ -1,13 +1,9 @@
 package com.sc.zuul.jwt;
 
 import com.sc.common.model.pojo.TokenInfo;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * @author hp
@@ -23,30 +19,23 @@ public class TokenParser {
     @Autowired
     private TokenBuilder tokenBuilder;
 
-    private final static String UID = "uid";
-
     /**
      * 解码token
      *
-     * @param jsonWebToken
-     * @param secret
+     * @param token
      * @return
      */
-    public static TokenInfo parstJwt(String jsonWebToken, String secret) {
+    public TokenInfo parseToken(String token) {
+        TokenInfo tokenInfo = null;
 
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(secret))
-                    .parseClaimsJws(jsonWebToken).getBody();
-            if (claims.get(UID) != null) {
-                TokenInfo tokenInfo = new TokenInfo();
-                tokenInfo.setIsToken(1);
-                tokenInfo.setUid(Integer.parseInt(claims.get(UID).toString()));
-                return tokenInfo;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (token.startsWith("star")) {
+            tokenInfo = JwtHelper.parstJwt(token.replace("star", ""), jwtProperties.getStarSecret());
+        } else if (token.startsWith("consumer")) {
+            tokenInfo = JwtHelper.parstJwt(token.replace("consumer", ""), jwtProperties.getCustomerSecret());
+        } else {
+            throw new RuntimeException("token error");
         }
-        return null;
+        return tokenInfo;
+
     }
 }

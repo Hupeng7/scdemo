@@ -13,4 +13,5 @@ public enum OperatorRole {
      * CONSUMER
      */
     CONSUMER;
+
 }

@@ -1,7 +1,9 @@
 package com.sc.zuul.jwt;
 
+import com.sc.common.model.pojo.TokenInfo;
 import com.sc.common.model.pojo.User;
 import com.sc.common.model.pojo.UserStar;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,6 +19,8 @@ import java.util.Date;
  * @time 2018/10/16.
  */
 public class JwtHelper {
+
+    private final static String UID = "uid";
 
     /**
      * 版主端创建token 方式
@@ -78,6 +82,30 @@ public class JwtHelper {
         return "consumer" + builder.compact();
     }
 
+    /**
+     * 解码token
+     *
+     * @param jsonWebToken
+     * @param secret
+     * @return
+     */
+    public static TokenInfo parstJwt(String jsonWebToken, String secret) {
+
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(secret))
+                    .parseClaimsJws(jsonWebToken).getBody();
+            if (claims.get(UID) != null) {
+                TokenInfo tokenInfo = new TokenInfo();
+                tokenInfo.setIsToken(1);
+                tokenInfo.setUid(Integer.parseInt(claims.get(UID).toString()));
+                return tokenInfo;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 

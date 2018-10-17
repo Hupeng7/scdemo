@@ -1,10 +1,9 @@
 package com.sc.user.service.user;
 
-import com.netflix.discovery.converters.Auto;
 import com.sc.common.model.pojo.User;
 import com.sc.common.util.res.ResultUtil;
 import com.sc.common.util.res.ResultVO;
-import com.sc.user.mapper.user.UserMapper;
+import com.sc.user.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

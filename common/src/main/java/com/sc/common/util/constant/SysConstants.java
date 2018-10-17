@@ -18,4 +18,10 @@ public interface SysConstants {
 
     String DISTRIBUTED_LOCK_INDENTIFICATION = "order_lock";
 
+    /**
+     * user和user_star的Redis 前缀
+     */
+    String USER_HASH_PREFIX = "users";
+    String USER_STAR_HASH_PREFIX = "stars";
+
 }

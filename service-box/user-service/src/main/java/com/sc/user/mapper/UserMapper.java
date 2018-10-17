@@ -1,4 +1,4 @@
-package com.sc.user.mapper.user;
+package com.sc.user.mapper;
 
 import com.sc.common.model.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
