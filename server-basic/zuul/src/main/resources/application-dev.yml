@@ -17,9 +17,9 @@ eureka:
 #配置zuul网关#
 zuul:
   routes:
-#    order-api:
-#      path: /order-api/**
-#      serviceId: order-service
+    order-api:
+      path: /order-api/**
+      serviceId: order-service
     user-api:
       path: /user-api/**
       serviceId: user-service

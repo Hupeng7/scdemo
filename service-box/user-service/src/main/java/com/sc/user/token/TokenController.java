@@ -37,7 +37,7 @@ public class TokenController {
         return userTokenService.getToken(uid);
     }
 
-    @GetMapping("getStarToken/uid")
+    @GetMapping("getStarToken/{uid}")
     @ApiOperation(value = "获取版主token")
     public String getStarToken(@PathVariable("uid") Integer uid) {
         return userTokenService.getStarToken(uid);
